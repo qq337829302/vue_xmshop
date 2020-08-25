@@ -1,4 +1,4 @@
-# app
+# Vue-xmshop
 
 ## Project setup
 ```
