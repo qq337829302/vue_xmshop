@@ -22,9 +22,9 @@ export default {
         // storage.setItem('test',{'user':1});
         // storage.setItem('age',12,'test');
         // console.log(storage.getAll());
-        this.axios.get("/user/login").then(res=>{
-            console.log(res);
-        });
+        // this.axios.get("/user/login").then(res=>{
+        //     console.log(res);
+        // });
     }
 }
 </script>

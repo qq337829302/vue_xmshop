@@ -9,8 +9,10 @@
                     <a href="javascript:;">协议规则</a>
                 </div>
                 <div class="topbar-user">
-                    <a href="javascript:;">登录</a>
-                    <a href="javascript:;" class='my-cart'>
+                    <a href="javascript:;" v-if="username">{{username}}</a>
+                    <a href="javascript:;"  v-if="username">我的订单</a>
+                    <a href="javascript:;" @click='gotoLogin' v-if="!username">登录</a>
+                    <a href="javascript:;" class='my-cart' @click='gotoCart'>
                         <span class="icon-cart"></span>购物车
                     </a>
                 </div>
@@ -24,15 +26,44 @@
                 <div class="header-menu">
                     <div class="item-menu">
                         <span>小米</span>
-                        <div class="children"></div>
+                        <div class="children">
+                            <ul>
+                                <li class='product' v-for="(item,index) in productList[0]['list']" :key = "index">
+                                    <a :href=" '/#/detail?id='+item.id " target='_blank'>
+                                        <div class="pro-img">
+                                            <img :src="item.mainImage" :alt="item.subtitle">
+                                        </div>
+                                        <div class="pro-name">{{item.name}}</div>
+                                        <div class="pro-price">{{item.price|formatMoney}}</div>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </div>
                     </div>
                     <div class="item-menu">
                         <span>红米Redmi</span>
-                        <div class="children"></div>
+                        
+                       
                     </div>
                     <div class="item-menu">
-                        <span>电视</span>
-                        <div class="children"></div>
+                        <span>智能设备</span>
+                        <div class="children">
+                            <ul>
+                                <li class='product' v-for="(item,index) in productList[1]['list']" :key = "index">
+                                    <a :href=" '/#/detail?id='+item.id " target='_blank'>
+                                        <div class="pro-img">
+                                            <img :src="item.mainImage" :alt="item.subtitle">
+                                        </div>
+                                        <div class="pro-name">{{item.name}}</div>
+                                        <div class="pro-price">{{item.price|formatMoney}}</div>
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="header-serach">
@@ -53,11 +84,46 @@
 export default {
     name: 'nav-header',
     data(){
-        return {}
+        return {
+            username: '',
+            productList:[]
+        }
     },
-    monuted(){
-
+    mounted(){
+        this.getProductList();
     },
+    filters:{
+        formatMoney(val){
+            return "¥"+val.toFixed(2)+"元";
+        }
+    },
+    methods:{
+        getProductList(){
+            let productList = this.axios.get("/api/products",{
+                params: {
+                    categoryId: 100012,
+                    pageSize: 6
+                }
+            })
+            let tvList = this.axios.get("/api/products",{
+                params: {
+                    categoryId: 100002,
+                    pageSize: 6
+                }
+            })
+            this.axios.all([productList, tvList]).then(res => {
+                console.log(res[0]);
+                this.productList = res
+            });
+            // console.log(productList, tvList,11);
+        },
+        gotoCart(){
+            this.$router.push('/cart');
+        },
+        gotoLogin(){
+            this.$router.push('/login');
+        }
+    }
 }
 </script>
 
@@ -79,13 +145,18 @@ export default {
                     margin-right: 17px;
                 }
                 .my-cart {
-                    background-color: $colorA;
+                    background-color: #424242;
                     width: 110px;
                     text-align: center;
-                    color: $colorG;
+                    color: #b0b0b0;
                     .icon-cart {
                         @include bgImg(16px,12px,'/imgs/icon-cart.png');
                         margin-right: 4px;
+                    }
+                    &:hover{
+                        color: $colorG;
+                        background-color: $colorA;
+                        border: none;
                     }
                 }
             }
@@ -94,6 +165,7 @@ export default {
             .container {
                 height: 112px;
                 @include flex();
+                position: relative;
                 .header-logo {
                     display: inline-block;
                     width: 55px;
@@ -125,17 +197,86 @@ export default {
                     display: inline-block;
                     padding-left: 209px;
                     width: 664px;
+                   
                     .item-menu {
                         display: inline-block;
+                        height: 112px;
                         color: $colorB;
                         font-weight: bold;
                         font-size: 16px;
-                        line-height: 16px;
+                        line-height: 116px;
                         margin-right: 20px;
+
+                        &:hover {
+                            cursor: pointer;
+                            color: $colorA;
+                              .children{
+                                opacity: 1;
+                                height: 200px;
+                            }
+                        }
+
+                        .children{
+                            width: $min-width;
+                            position: absolute;
+                            left: 0;
+                            top: 112px;
+                            box-shadow: 0px 7px 6px 0px rgba(0, 0, 0, 0.11);
+                            font-size: $fontK;
+                            overflow: hidden;
+                            transition: all .3s;
+                            opacity: 0;
+                            height: 0;
+                            .product {
+                                float: left;
+                                width: 16.6%;
+                                height: 220px;
+                                text-align: center;
+                                position: relative;
+                                a {
+                                    display: inline-block;
+                                    height: 111px;
+                                    .pro-img {
+                                        width: auto;
+                                        height: 111px;
+                                        img{
+                                            height: 111px;
+                                        }
+                                        
+                                    }
+
+                                    .pro-name {
+                                        height: 30px;
+                                        color: #333;
+                                        font-weight: 700;
+                                        margin-top: 11px;
+                                        margin-bottom: 8px;
+                                        line-height:30px;
+                                    }
+
+                                    .pro-price {
+                                        height: 30px;
+                                        color: $colorA;
+                                        line-height:30px;
+                                    }
+                                }
+
+                                &:after {
+                                    content: ' ';
+                                    position: absolute;
+                                    top: 28px;
+                                    right: 0;
+                                    border-left: 1px solid $colorF;
+                                    height: 100px;
+                                }
+
+                                &:last-child:after {
+                                    display: none;
+                                }
+                            }
+                        }
                     }
-                    &:hover{
-                        cursor: pointer;
-                    }
+                   
                 }
                 .header-serach {
                     width: 319px;
@@ -166,7 +307,7 @@ export default {
                                     margin-top: 15px;
                                 }
                             &:hover {
-                                cursor:pointer;
+                                cursor: pointer;
                                 background: $colorA;
                             }    
                         }

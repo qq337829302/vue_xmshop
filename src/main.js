@@ -12,7 +12,7 @@ if (mock) {
 
 //axios
 Vue.use(VueAxios, axios);
-axios.defaults.baseURL = 'http://zhouziqi.work:7300/mock/5f45fec5b1dbbb00160d23c3/api';
+axios.defaults.baseURL = 'http://mi.futurefe.com/';
 // axios.defaults.baseURL = '/api';
 axios.defaults.timeout = 3000;
 //接口拦截

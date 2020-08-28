@@ -4,8 +4,8 @@ module.exports = {
         port: 8080,
         open: true,
         proxy: {
-            '/test': {
-                target: 'http://www.imooc.com/u/',
+            '/api': {
+                target: 'http://mi.futurefe.com/api',
                 changeOrigin: false
             }
         },
