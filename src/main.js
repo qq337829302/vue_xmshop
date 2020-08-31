@@ -3,7 +3,9 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
 //mockjs
 const mock = false;
 if (mock) {
@@ -18,7 +20,7 @@ axios.defaults.timeout = 3000;
 //接口拦截
 axios.interceptors.response.use(response => {
     let res = response.data;
-    console.log(res);
+
     if (res.status == 0) {
         return res.data;
     } else if (res.status == 10) {

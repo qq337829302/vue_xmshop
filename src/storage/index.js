@@ -9,7 +9,7 @@ export default {
         if (module) {
             let data = this.getItem(module);
             data[key] = value;
-            console.log(data);
+
             this.setItem(module, data);
         } else {
             let data = this.getAll();
