@@ -227,6 +227,7 @@ export default {
                             transition: all .3s;
                             opacity: 0;
                             height: 0;
+                            background-color: $colorG;
                             .product {
                                 float: left;
                                 width: 16.6%;

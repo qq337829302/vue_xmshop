@@ -24,6 +24,7 @@
         "mockjs": "^1.1.0",
         "node-sass": "^4.14.1",
         "sass-loader": "^10.0.0",
+        "swiper": "^6.1.2",
         "vue-awesome-swiper": "^4.1.1",
         "vue-axios": "^2.1.5",
         "vue-cookie": "^1.1.4",
