@@ -33,7 +33,7 @@
                     <div class="pro-img">
                       <img :src="item.mainImage" :alt="item.subtitle" />
                     </div>
-                    <div class="pro-name">{{item.name}}</div>
+                    <div class="pro-name">{{item.name|subTitle}}</div>
                     <div class="pro-price">{{item.price|formatMoney}}</div>
                   </a>
                 </li>
@@ -52,7 +52,7 @@
                     <div class="pro-img">
                       <img :src="item.mainImage" :alt="item.subtitle" />
                     </div>
-                    <div class="pro-name">{{item.name}}</div>
+                    <div class="pro-name">{{item.name|subTitle}}</div>
                     <div class="pro-price">{{item.price|formatMoney}}</div>
                   </a>
                 </li>
@@ -89,6 +89,9 @@ export default {
     formatMoney(val) {
       return "¥" + val.toFixed(2) + "元";
     },
+    subTitle(val){
+      return val.length < 10 ? val : val.substring(0, 10) + '...';
+    }
   },
   methods: {
     getProductList() {
@@ -105,7 +108,6 @@ export default {
         },
       });
       this.axios.all([productList, tvList]).then((res) => {
-        console.log(res[0]);
         this.productList = res;
       });
       // console.log(productList, tvList,11);
