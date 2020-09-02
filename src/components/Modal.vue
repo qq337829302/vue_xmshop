@@ -66,6 +66,7 @@ export default {
   width: 100%;
   height: 100%;
   transition: all 0.5s;
+  z-index: 99;
   .mask {
     position: fixed;
     left: 0;

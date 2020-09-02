@@ -5,8 +5,11 @@ module.exports = {
         open: true,
         proxy: {
             '/api': {
-                target: 'http://mi.futurefe.com/api',
-                changeOrigin: false
+                target: 'http://mall-pre.springboot.cn/',
+                changeOrigin: true,
+                pathRewrite: {
+                    '/api': ''
+                }
             }
         },
     },

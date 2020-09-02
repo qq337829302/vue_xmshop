@@ -147,7 +147,15 @@
     </div>
 
     <service-bar></service-bar>
-    <modal :showModal="showModal" modalType="middle" title="提示" confirmBtn="查看详情" btnType="3" @submit="goToCart" @cancel="showModal=false">
+    <modal
+      :showModal="showModal"
+      modalType="middle"
+      title="提示"
+      confirmBtn="查看详情"
+      btnType="3"
+      @submit="goToCart"
+      @cancel="showModal=false"
+    >
       <template v-slot:body>添加购物车成功</template>
     </modal>
   </div>
@@ -160,7 +168,7 @@ export default {
   name: "index",
   components: {
     serviceBar,
-    Modal
+    Modal,
   },
   created() {
     this.getProductList();
@@ -210,7 +218,7 @@ export default {
   methods: {
     getProductList() {
       this.axios
-        .get("/api/products/", {
+        .get("/products/", {
           params: {
             categoryId: 100012,
             pageSize: 14,
@@ -218,18 +226,18 @@ export default {
         })
         .then((res) => {
           console.log(res.list);
-          this.productList = res.list.slice(6,14);
+          this.productList = res.list.slice(6, 14);
         });
     },
-    addToCart(id){
+    addToCart(id) {
       console.log(id);
-  
-      this.showModal = true;  
+
+      this.showModal = true;
     },
-    goToCart(){
+    goToCart() {
       console.log(123);
       this.$router.push("/cart");
-    }
+    },
   },
 };
 </script>
@@ -241,7 +249,6 @@ export default {
   .carousel-box {
     height: 460px;
     .el-carousel {
-   
       .el-carousel__arrow--left {
         margin-left: 264px;
       }
@@ -411,13 +418,13 @@ export default {
           width: 234px;
           height: 290px;
           background-color: $colorG;
-          transition:all .2s;
+          transition: all 0.2s;
           &:first-child {
             margin-top: 10px;
           }
-          &:hover{
-            box-shadow: 0 15px 30px rgba(0,0,0,.1);
-            transform: translate3d(0,-2px,0);
+          &:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transform: translate3d(0, -2px, 0);
           }
           span {
             background-color: #7ecf68;
@@ -452,7 +459,7 @@ export default {
             font-size: 14px;
             color: $colorA;
             &:after {
-              content: ' ';
+              content: " ";
               background: url(/imgs/icon-cart-hover.png) no-repeat 50%;
               width: 22px;
               height: 22px;

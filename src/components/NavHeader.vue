@@ -89,19 +89,19 @@ export default {
     formatMoney(val) {
       return "¥" + val.toFixed(2) + "元";
     },
-    subTitle(val){
-      return val.length < 10 ? val : val.substring(0, 10) + '...';
-    }
+    subTitle(val) {
+      return val.length < 10 ? val : val.substring(0, 10) + "...";
+    },
   },
   methods: {
     getProductList() {
-      let productList = this.axios.get("/api/products", {
+      let productList = this.axios.get("/products", {
         params: {
           categoryId: 100012,
           pageSize: 6,
         },
       });
-      let tvList = this.axios.get("/api/products", {
+      let tvList = this.axios.get("/products", {
         params: {
           categoryId: 100002,
           pageSize: 6,

@@ -6,6 +6,10 @@ import VueAxios from 'vue-axios'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueLazyLoad from 'vue-lazyload';
+import VueCookie from 'vue-cookie';
+
+//vue-cookie
+Vue.use(VueCookie);
 
 //lazyload
 Vue.use(VueLazyLoad, {
@@ -23,7 +27,7 @@ if (mock) {
 
 //axios
 Vue.use(VueAxios, axios);
-axios.defaults.baseURL = 'http://mi.futurefe.com/';
+axios.defaults.baseURL = '/api';
 // axios.defaults.baseURL = '/api';
 axios.defaults.timeout = 3000;
 //接口拦截
