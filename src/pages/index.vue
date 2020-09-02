@@ -1,5 +1,6 @@
 <template>
   <div class="index">
+    <!-- 容器最小宽度 -->
     <div class="container">
       <div class="carousel-box">
         <div class="menu">
@@ -11,7 +12,7 @@
                   <ul v-for="(item,i) in menuList" :key="i">
                     <li v-for="(v,j) in item" :key="j">
                       <a :href="'/#/product/'+v.id">
-                        <img :src="v.img?v.img:'/imgs/item-box-1.png'" alt />
+                        <img v-lazy="v.img?v.img:'/imgs/item-box-1.png'" alt />
                         {{v.name?v.name:'小米手机'}}
                       </a>
                     </li>
@@ -45,7 +46,7 @@
         <el-carousel height="460px">
           <el-carousel-item v-for="(item,index) in carousels" v-bind:key="index">
             <a v-bind:href="'/#/product/'+item.id">
-              <img v-bind:src="item.img" />
+              <img :src="item.img" />
             </a>
           </el-carousel-item>
         </el-carousel>
@@ -55,37 +56,37 @@
         <div class="channel-list">
           <ul>
             <li>
-              <a href>
+              <a href="jascript:;">
                 <img src="/imgs/ads/icon-1.png" alt />
                 <p>小米秒杀</p>
               </a>
             </li>
             <li>
-              <a href>
+              <a href="jascript:;">
                 <img src="/imgs/ads/icon-2.png" alt />
                 <p>企业团购</p>
               </a>
             </li>
             <li>
-              <a href>
+              <a href="jascript:;">
                 <img src="/imgs/ads/icon-3.png" alt />
                 <p>F码通道</p>
               </a>
             </li>
             <li>
-              <a href>
+              <a href="jascript:;">
                 <img src="/imgs/ads/icon-4.png" alt />
                 <p>米粉卡</p>
               </a>
             </li>
             <li>
-              <a href>
+              <a href="jascript:;">
                 <img src="/imgs/ads/icon-5.png" alt />
                 <p>以旧换新</p>
               </a>
             </li>
             <li>
-              <a href>
+              <a href="jascript:;">
                 <img src="/imgs/ads/icon-6.png" alt />
                 <p>话费充值</p>
               </a>
@@ -97,17 +98,17 @@
           <ul>
             <li>
               <a href="/#/product/30">
-                <img src="/imgs/ads/ads-1.png" alt />
+                <img v-lazy="'/imgs/ads/ads-1.png'" alt />
               </a>
             </li>
             <li>
               <a href="/#/product/33">
-                <img src="/imgs/ads/ads-2.jpg" alt />
+                <img v-lazy="'/imgs/ads/ads-2.jpg'" alt />
               </a>
             </li>
             <li>
               <a href="/#/product/34">
-                <img src="/imgs/ads/ads-3.png" alt />
+                <img v-lazy="'/imgs/ads/ads-3.png'" alt />
               </a>
             </li>
           </ul>
@@ -116,104 +117,58 @@
 
       <div class="banner">
         <a href="/#/product/33">
-          <img src="/imgs/banner-1.png" alt />
+          <img v-lazy="'/imgs/banner-1.png'" alt />
         </a>
       </div>
+    </div>
 
-      <div class="product-list">
-        <div class="wrap">
+    <!-- 底部 productList -->
+    <div class="wrap">
+      <div class="container">
+        <div class="product-list">
           <div class="list-left">
-            <a href="">
-              <img src="/imgs/mix-alpha.jpg" alt="">
+            <a href>
+              <img v-lazy="'/imgs/mix-alpha.jpg'" alt />
             </a>
-            
           </div>
           <div class="list-right">
-            
-            <a href="">
+            <a :href="'/#/product/'+item.id" v-for="(item,i) in productList" :key="i">
               <div class="item">
-                <img src="" alt="">
-                <p></p>
-                <span></span>
-                <h3></h3>
+                <span>新品</span>
+                <img v-lazy="item.mainImage" alt />
+                <h3>{{item.name}}</h3>
+                <p>{{item.subtitle}}</p>
+                <h4 class="price" @click.prevent="addToCart(item.id)">{{item.price}}元</h4>
               </div>
             </a>
-            <a href="">
-              <div class="item">
-                <img src="" alt="">
-                <p></p>
-                <span></span>
-                <h3></h3>
-              </div>
-            </a>
-            <a href="">
-              <div class="item">
-                <img src="" alt="">
-                <p></p>
-                <span></span>
-                <h3></h3>
-              </div>
-            </a>
-            <a href="">
-              <div class="item">
-                <img src="" alt="">
-                <p></p>
-                <span></span>
-                <h3></h3>
-              </div>
-            </a>
-            <a href="">
-              <div class="item">
-                <img src="" alt="">
-                <p></p>
-                <span></span>
-                <h3></h3>
-              </div>
-            </a>
-            <a href="">
-              <div class="item">
-                <img src="" alt="">
-                <p></p>
-                <span></span>
-                <h3></h3>
-              </div>
-            </a>
-            <a href="">
-              <div class="item">
-                <img src="" alt="">
-                <p></p>
-                <span></span>
-                <h3></h3>
-              </div>
-            </a>
-            <a href="">
-              <div class="item">
-                <img src="" alt="">
-                <p></p>
-                <span></span>
-                <h3></h3>
-              </div>
-            </a>
-           
           </div>
         </div>
       </div>
     </div>
 
     <service-bar></service-bar>
+    <modal :showModal="showModal" modalType="middle" title="提示" confirmBtn="查看详情" btnType="3" @submit="goToCart" @cancel="showModal=false">
+      <template v-slot:body>添加购物车成功</template>
+    </modal>
   </div>
 </template>
 
 <script>
 import serviceBar from "./../components/serviceBar";
-
+import Modal from "./../components/Modal";
 export default {
   name: "index",
   components: {
     serviceBar,
+    Modal
+  },
+  created() {
+    this.getProductList();
   },
   data() {
     return {
+      productList: [],
+      showModal: false,
       carousels: [
         { id: 43, img: "/imgs/slider/slide-1.jpg" },
         { id: 45, img: "/imgs/slider/slide-2.jpg" },
@@ -252,6 +207,30 @@ export default {
       ],
     };
   },
+  methods: {
+    getProductList() {
+      this.axios
+        .get("/api/products/", {
+          params: {
+            categoryId: 100012,
+            pageSize: 14,
+          },
+        })
+        .then((res) => {
+          console.log(res.list);
+          this.productList = res.list.slice(6,14);
+        });
+    },
+    addToCart(id){
+      console.log(id);
+  
+      this.showModal = true;  
+    },
+    goToCart(){
+      console.log(123);
+      this.$router.push("/cart");
+    }
+  },
 };
 </script>
 
@@ -262,6 +241,7 @@ export default {
   .carousel-box {
     height: 460px;
     .el-carousel {
+   
       .el-carousel__arrow--left {
         margin-left: 264px;
       }
@@ -343,12 +323,12 @@ export default {
     width: 100%;
     margin-top: 20px;
     margin-bottom: 30px;
-    display:flex;
-    z-index: 9999;
+    display: flex;
+
     .channel-list {
       box-sizing: border-box;
       background: #5f5750;
-      width:264px;
+      width: 264px;
       padding: 3px;
       text-align: center;
       height: 100%;
@@ -360,18 +340,18 @@ export default {
         li {
           margin-bottom: 15px;
           width: 33%;
-          a{
+          a {
             display: block;
             color: #fff;
             font-size: 14px;
-            opacity: .6;
-            img{
+            opacity: 0.6;
+            img {
               width: 24px;
               height: 24px;
             }
           }
-          &:hover{
-           opacity: .9;
+          &:hover {
+            opacity: 0.9;
           }
         }
       }
@@ -380,17 +360,17 @@ export default {
     .ads-list {
       height: 100%;
       width: 970px;
-     
-      ul{
-         display: flex;
-         justify-content: space-between;
+
+      ul {
+        display: flex;
+        justify-content: space-between;
         li {
           a {
             display: block;
-            img{
+            img {
               width: 316px;
               height: 170px;
-              float:left;
+              float: left;
             }
           }
         }
@@ -406,31 +386,82 @@ export default {
       }
     }
   }
+  .wrap {
+    background-color: $colorJ;
+    .product-list {
+      height: 614px;
+      width: 100%;
+      margin-bottom: 50px;
 
-  .product-list {
-
-    height: 614px;
-    width: 100%;
-    .wrap{
       display: flex;
-      background-color: $colorJ;
-      .list-left{
+
+      .list-left {
         width: 234px;
-        img{
+        img {
           width: 234px;
           height: 100%;
         }
       }
 
       .list-right {
-        
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        div{
+        div {
           width: 234px;
-          height: 300px;
+          height: 290px;
           background-color: $colorG;
+          transition:all .2s;
+          &:first-child {
+            margin-top: 10px;
+          }
+          &:hover{
+            box-shadow: 0 15px 30px rgba(0,0,0,.1);
+            transform: translate3d(0,-2px,0);
+          }
+          span {
+            background-color: #7ecf68;
+            color: $colorG;
+            font-size: 14px;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 5px;
+            width: 67px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+          }
+          img {
+            width: 100%;
+            height: 180px;
+            margin: 0 auto;
+          }
+          h3,
+          h4,
+          p {
+            text-align: center;
+            margin-top: 5px;
+          }
+          p {
+            color: $colorD;
+          }
+          h3 {
+            color: $colorB;
+          }
+          h4 {
+            font-size: 14px;
+            color: $colorA;
+            &:after {
+              content: ' ';
+              background: url(/imgs/icon-cart-hover.png) no-repeat 50%;
+              width: 22px;
+              height: 22px;
+              background-size: contain;
+              display: inline-block;
+              vertical-align: middle;
+              margin-left: 5px;
+            }
+          }
         }
       }
     }

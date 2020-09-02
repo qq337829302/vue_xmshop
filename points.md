@@ -11,3 +11,5 @@
 #   安全距离
     min-width
 
+#   图片加载
+    vue-lazyload

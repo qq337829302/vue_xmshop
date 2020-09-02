@@ -50,7 +50,7 @@
                 <li class="product" v-for="(item,index) in productList[1]['list']" :key="index">
                   <a :href=" '/#/detail?id='+item.id " target="_blank">
                     <div class="pro-img">
-                      <img :src="item.mainImage" :alt="item.subtitle" />
+                      <img v-lazy="item.mainImage" :alt="item.subtitle" />
                     </div>
                     <div class="pro-name">{{item.name|subTitle}}</div>
                     <div class="pro-price">{{item.price|formatMoney}}</div>
@@ -207,7 +207,7 @@ export default {
             .children {
               opacity: 1;
               height: 200px;
-              z-index: 99999;
+              z-index: 10;
             }
           }
 

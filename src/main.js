@@ -5,7 +5,16 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import VueLazyLoad from 'vue-lazyload';
+
+//lazyload
+Vue.use(VueLazyLoad, {
+    loading: '/imgs/loading-svg/loading-bars.svg'
+});
+
+//elementui
 Vue.use(ElementUI);
+
 //mockjs
 const mock = false;
 if (mock) {
