@@ -3,7 +3,9 @@
     <div class="login-header">
       <div class="container">
         <div class="logo">
-          <img src="/imgs/login-logo.png" alt />
+          <a href="/#/index">
+            <img src="/imgs/login-logo.png" alt />
+          </a>
         </div>
       </div>
     </div>
@@ -30,7 +32,7 @@
 
             <div class="nav-box-others">
               <div class="switch">
-                <a href="javascript:;">手机短信登录/注册</a>
+                <a href="javascript:;" @click="register">手机短信登录/注册</a>
               </div>
               <div class="account">
                 <a href="javascript:;">立即注册</a>
@@ -78,6 +80,9 @@ export default {
       password: "",
     };
   },
+  created() {
+    this.checkLogin();
+  },
   methods: {
     login() {
       let { username, password } = this;
@@ -87,12 +92,31 @@ export default {
           username,
           password,
         })
-        .then(() => {
+        .then((res) => {
+          this.$cookie.set("userId", res.id, { expires: "1M" });
+          console.log(res.id);
+          this.$store.dispatch("setUserInfo", res);
+
           this.$router.push("/index");
         })
-        .catch((msg) => {
-          alert(msg);
+        .catch(() => {});
+    },
+    register() {
+      let { username, password } = this;
+      this.axios
+        .post("/user/register", {
+          username,
+          password,
+          email: "xxxx" + Math.floor(Math.random() * 10) + "@qq.com",
+        })
+        .then(() => {
+          alert("注册成功");
         });
+    },
+    checkLogin() {
+      if (this.$store.state.userInfo != "") {
+        this.$router.push("/index");
+      }
     },
   },
 };

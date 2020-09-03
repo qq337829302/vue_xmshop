@@ -225,17 +225,22 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res.list);
           this.productList = res.list.slice(6, 14);
         });
     },
     addToCart(id) {
       console.log(id);
-
-      this.showModal = true;
+      this.axios
+        .post("/carts", {
+          productId: id,
+          selected: true,
+        })
+        .then((res) => {
+          this.showModal = true;
+          this.$store.dispatch("setCartCount", res.cartTotalQuantity);
+        });
     },
     goToCart() {
-      console.log(123);
       this.$router.push("/cart");
     },
   },

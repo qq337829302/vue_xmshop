@@ -7,6 +7,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueLazyLoad from 'vue-lazyload';
 import VueCookie from 'vue-cookie';
+import store from './store/';
 
 //vue-cookie
 Vue.use(VueCookie);
@@ -33,19 +34,27 @@ axios.defaults.timeout = 3000;
 //接口拦截
 axios.interceptors.response.use(response => {
     let res = response.data;
+    let path = location.hash;
 
     if (res.status == 0) {
         return res.data;
     } else if (res.status == 10) {
-        window.location.href = '/#/login';
+        //首页不跳转
+        if (path != "#/index") {
+            window.location.href = '/#/login';
+        }
+
+        return Promise.reject(res);
     } else {
         alert(res.msg)
+        return Promise.reject(res);
     }
 })
 
 Vue.config.productionTip = false
 
 new Vue({
+    store,
     router,
     render: h => h(App),
 }).$mount('#app')

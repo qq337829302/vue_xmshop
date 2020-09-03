@@ -4,6 +4,7 @@
     height: 40px;
     text-align: center;
     line-height: 40px;
+    border: none;
 }
 
 .btn-primary {
@@ -20,4 +21,11 @@
     .btn {
         margin-right: 20px;
     }
+}
+
+.btn-small{
+    width: 118px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 12px;
 }

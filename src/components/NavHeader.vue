@@ -10,10 +10,12 @@
         </div>
         <div class="topbar-user">
           <a href="javascript:;" v-if="username">{{username}}</a>
+          <a href="javascript:;" v-if="username" class="logout" @click="logout"></a>
           <a href="javascript:;" v-if="username">我的订单</a>
           <a href="javascript:;" @click="gotoLogin" v-if="!username">登录</a>
           <a href="javascript:;" class="my-cart" @click="gotoCart">
-            <span class="icon-cart"></span>购物车
+            <span class="icon-cart"></span>
+            购物车({{cartCount}})
           </a>
         </div>
       </div>
@@ -28,7 +30,7 @@
             <span>小米</span>
             <div class="children">
               <ul>
-                <li class="product" v-for="(item,index) in productList[0]['list']" :key="index">
+                <li class="product" v-for="(item,index) in productList" :key="index">
                   <a :href=" '/#/detail?id='+item.id " target="_blank">
                     <div class="pro-img">
                       <img :src="item.mainImage" :alt="item.subtitle" />
@@ -47,7 +49,7 @@
             <span>智能设备</span>
             <div class="children">
               <ul>
-                <li class="product" v-for="(item,index) in productList[1]['list']" :key="index">
+                <li class="product" v-for="(item,index) in tvList" :key="index">
                   <a :href=" '/#/detail?id='+item.id " target="_blank">
                     <div class="pro-img">
                       <img v-lazy="item.mainImage" :alt="item.subtitle" />
@@ -78,12 +80,21 @@ export default {
   name: "nav-header",
   data() {
     return {
-      username: "",
       productList: [],
+      tvList: [],
     };
   },
   mounted() {
     this.getProductList();
+    this.getTvList();
+  },
+  computed: {
+    username() {
+      return this.$store.state.userInfo.username;
+    },
+    cartCount() {
+      return this.$store.state.cartCount;
+    },
   },
   filters: {
     formatMoney(val) {
@@ -95,28 +106,41 @@ export default {
   },
   methods: {
     getProductList() {
-      let productList = this.axios.get("/products", {
-        params: {
-          categoryId: 100012,
-          pageSize: 6,
-        },
-      });
-      let tvList = this.axios.get("/products", {
-        params: {
-          categoryId: 100002,
-          pageSize: 6,
-        },
-      });
-      this.axios.all([productList, tvList]).then((res) => {
-        this.productList = res;
-      });
-      // console.log(productList, tvList,11);
+      this.axios
+        .get("/products", {
+          params: {
+            categoryId: 100012,
+            pageSize: 6,
+          },
+        })
+        .then((res) => {
+          this.productList = res.list;
+        });
+    },
+    getTvList() {
+      this.axios
+        .get("/products", {
+          params: {
+            categoryId: 100002,
+            pageSize: 6,
+          },
+        })
+        .then((res) => {
+          this.tvList = res.list;
+        });
     },
     gotoCart() {
       this.$router.push("/cart");
     },
     gotoLogin() {
       this.$router.push("/login");
+    },
+    logout() {
+      this.$store.dispatch("logout");
+      this.$store.dispatch("setCartCount", 0);
+      this.$cookie.delete("JSESSIONID");
+      this.$cookie.delete("userId");
+      this.$router.push("/index");
     },
   },
 };
@@ -133,7 +157,12 @@ export default {
     background-color: $colorB;
     .container {
       @include flex();
-
+      .logout {
+        @include bgImg(12px, 12px, "/imgs/logout.png");
+        vertical-align: middle;
+        width: 25px;
+        height: 25px;
+      }
       a {
         display: inline-block;
         color: $colorL;
@@ -144,6 +173,7 @@ export default {
         width: 110px;
         text-align: center;
         color: #b0b0b0;
+        margin-right: 0;
         .icon-cart {
           @include bgImg(16px, 12px, "/imgs/icon-cart.png");
           margin-right: 4px;
@@ -167,6 +197,7 @@ export default {
         height: 55px;
         background-color: $colorA;
         overflow: hidden;
+
         a {
           display: inline-block;
           width: 110px;
