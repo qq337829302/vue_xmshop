@@ -5,7 +5,4 @@ export default {
     setCartCount(state, num) {
         state.cartCount = num;
     },
-    logout(state) {
-        state.userInfo = "";
-    }
 }

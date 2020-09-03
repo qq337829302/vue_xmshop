@@ -1,5 +1,5 @@
 <template>
-  <div class="product-bar">
+  <div class="product-bar" :class="{'isFixed':isFixed}">
     <div class="container">
       <div class="bar-left">
         <p>{{productInfo.name}}</p>
@@ -30,21 +30,47 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      isFixed: false,
+    };
   },
-  methods: {},
+  created() {
+    window.addEventListener("scroll", this.suspend);
+  },
+  methods: {
+    suspend() {
+      let scrollTop =
+        window.pageYoffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      console.log(scrollTop);
+      //this.isFixed = true;
+      this.isFixed = scrollTop > 257 ? true : false;
+    },
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.suspend, false);
+  },
 };
 </script>
 
 
 <style lang="scss">
 @import "./../assets/scss/config.scss";
-
+.isFixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: $colorG;
+  z-index: 11;
+  transition: all 0.4s;
+}
 .product-bar {
   margin-bottom: 10px;
   border-top: 1px solid $colorL;
   padding-top: 15px;
   text-align: center;
+  padding-bottom: 10px;
   .container {
     display: flex;
     justify-content: space-between;

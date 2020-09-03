@@ -136,11 +136,15 @@ export default {
       this.$router.push("/login");
     },
     logout() {
-      this.$store.dispatch("logout");
-      this.$store.dispatch("setCartCount", 0);
-      this.$cookie.delete("JSESSIONID");
-      this.$cookie.delete("userId");
-      this.$router.push("/index");
+      this.axios.post("/user/logout", {}).then(() => {
+        this.$message({
+          message: "退出成功",
+          type: "success",
+          onClose: () => {
+            this.$router.go(0);
+          },
+        });
+      });
     },
   },
 };
