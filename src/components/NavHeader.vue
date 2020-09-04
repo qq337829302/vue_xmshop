@@ -141,7 +141,9 @@ export default {
           message: "退出成功",
           type: "success",
           onClose: () => {
-            this.$router.go(0);
+            this.$store.dispatch("setUserInfo", "");
+            this.$store.dispatch("setCartCount", 0);
+            //this.$router.go(0);
           },
         });
       });

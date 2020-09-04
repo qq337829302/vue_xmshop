@@ -27,11 +27,12 @@
       </div>
 
       <div class="item-video">
-        <div class="video-bg"></div>
+        <div class="video-bg" @click="showSilde=true"></div>
         <div class="video-box">
-          <div class="overlay"></div>
-          <div class="video">
-            <video src="/imgs/product/video.mp4" controls="controls"></video>
+          <div class="overlay" v-if="showSilde"></div>
+          <div class="video" :class="{'silde':showSilde}">
+            <span class="icon-close" @click="showSilde=false"></span>
+            <video src="/imgs/product/video.mp4" controls="controls" autoplay muted></video>
           </div>
         </div>
       </div>
@@ -48,6 +49,7 @@ export default {
   },
   data() {
     return {
+      showSilde: false,
       productInfo: {},
       galleryList: [
         { id: 1, img: "gallery-1.png" },
@@ -118,8 +120,51 @@ export default {
 
     .item-video {
       .video-bg {
-        @include bgImg(100%, 500px, "/imgs/icon-cart.png");
+        @include bgImg(100%, 500px, "/imgs/product/gallery-1.png");
+        background-size: cover;
         width: 100%;
+        cursor: pointer;
+      }
+      .video-box {
+        .overlay {
+          z-index: 11;
+          height: 1226px;
+          width: 100%;
+          position: fixed;
+          top: 0;
+          left: 0;
+          background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .video {
+          position: fixed;
+          left: 50%;
+          top: -50%;
+          transform: translateX(-50%) translateY(-50%);
+          width: 1000px;
+          height: 536px;
+          z-index: 11;
+          transition: all 0.2s;
+          opacity: 0;
+          &.silde {
+            top: 50%;
+            opacity: 1;
+          }
+          .icon-close {
+            @include bgImg(20px, 20px, "/imgs/icon-close.png");
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            cursor: pointer;
+            z-index: 12;
+          }
+          video {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            outline: none;
+          }
+        }
       }
     }
   }
