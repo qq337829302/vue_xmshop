@@ -5,6 +5,7 @@
     text-align: center;
     line-height: 40px;
     border: none;
+    cursor:pointer;
 }
 
 .btn-primary {
@@ -28,4 +29,11 @@
     height: 28px;
     line-height: 28px;
     font-size: 12px;
+}
+
+.btn-large{
+    width: 300px;
+    height: 54px;
+    line-height: 54px;
+    font-size: 22px;
 }

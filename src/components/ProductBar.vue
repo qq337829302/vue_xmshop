@@ -43,7 +43,7 @@ export default {
         window.pageYoffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
-      console.log(scrollTop);
+      // console.log(scrollTop);
       //this.isFixed = true;
       this.isFixed = scrollTop > 257 ? true : false;
     },

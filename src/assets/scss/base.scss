@@ -7,3 +7,21 @@
 .font-active{
     color: $colorA;
 }
+
+.fl{
+    float: left;
+}
+
+.fr{
+    float: right;
+}
+
+.clearfix:after{
+    content: ' ';
+    display: block;
+    clear: both;
+}
+
+.border-active{
+    border: 1px solid $colorA !important; 
+}

@@ -229,7 +229,6 @@ export default {
         });
     },
     addToCart(id) {
-      console.log(id);
       this.axios
         .post("/carts", {
           productId: id,
