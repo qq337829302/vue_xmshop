@@ -408,9 +408,15 @@ export default {
 
       .list-left {
         width: 234px;
+        background: url("/imgs/mix-alpha.jpg") no-repeat 50%;
+        background-size: contain;
+        transition: all 0.2s;
+        &:hover {
+          transform: scale(1.2);
+        }
         img {
           width: 234px;
-          height: 100%;
+          height: auto;
         }
       }
 

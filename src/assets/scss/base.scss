@@ -1,10 +1,11 @@
+@import "./mixin";
 .container {
     width: $min-width;
     margin: 0 auto;
     position: relative;
 }
 
-.font-active{
+.font-active {
     color: $colorA;
 }
 
@@ -12,16 +13,55 @@
     float: left;
 }
 
-.fr{
+.fr {
     float: right;
 }
 
-.clearfix:after{
+.clearfix:after {
     content: ' ';
     display: block;
     clear: both;
 }
-
-.border-active{
+.checkbox {
+  display:inline-block;
+  width: 22px;
+  height: 22px;
+  border: 1px solid $colorH;
+  vertical-align: middle;
+  margin-right: 17px;
+  cursor: pointer;
+  &.checked{
+    background: url(/imgs/icon-gou.png) #f60 no-repeat 50%;
+    background-size: 16px 12px;
+  }
+}
+.border-active {
     border: 1px solid $colorA !important; 
 }
+
+.header-logo {
+    display: inline-block;
+    width: 55px;
+    height: 55px;
+    background-color: $colorA;
+    overflow: hidden;
+
+    a {
+      display: inline-block;
+      width: 110px;
+      height: 55px;
+      &:before {
+        content: " ";
+        @include bgImg(55px, 55px, "/imgs/mi-logo.png", 55px);
+        transition: margin 0.2s;
+      }
+      &:after {
+        content: " ";
+        @include bgImg(55px, 55px, "/imgs/mi-home.png", 55px);
+      }
+      &:hover {
+        margin-left: -55px;
+        transition: margin 0.2s;
+      }
+    }
+  }
