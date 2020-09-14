@@ -87,6 +87,9 @@ export default {
   mounted() {
     this.getProductList();
     this.getTvList();
+    if (this.$route.params.from && this.$route.params.from == "login") {
+      this.getCartCount();
+    }
   },
   computed: {
     username() {
@@ -135,6 +138,12 @@ export default {
     gotoLogin() {
       this.$router.push("/login");
     },
+    getCartCount() {
+      this.axios.get("/carts/products/sum", {}).then((res) => {
+        //保存到vuex
+        this.$store.dispatch("setCartCount", res);
+      });
+    },
     logout() {
       this.axios.post("/user/logout", {}).then(() => {
         this.$message({
@@ -143,6 +152,7 @@ export default {
           onClose: () => {
             this.$store.dispatch("setUserInfo", "");
             this.$store.dispatch("setCartCount", 0);
+            this.$cookie.set("userId", "", { expires: "-1" });
             //this.$router.go(0);
           },
         });

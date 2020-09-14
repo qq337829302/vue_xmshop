@@ -12,8 +12,10 @@ export default {
     return {};
   },
   mounted() {
-    this.getUserInfo();
-    this.getCartCount();
+    if (this.$cookie.get("userId")) {
+      this.getUserInfo();
+      this.getCartCount();
+    }
   },
   methods: {
     getUserInfo() {

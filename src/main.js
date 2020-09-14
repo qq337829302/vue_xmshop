@@ -3,11 +3,13 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
 import VueLazyLoad from 'vue-lazyload';
 import VueCookie from 'vue-cookie';
 import store from './store/';
+
+//按需引入elementui
+import { Message, Carousel, CarouselItem } from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 //vue-cookie
 Vue.use(VueCookie);
@@ -18,8 +20,9 @@ Vue.use(VueLazyLoad, {
 });
 
 //elementui
-Vue.use(ElementUI);
-
+Vue.prototype.$message = Message;
+Vue.use(Carousel);
+Vue.use(CarouselItem);
 //mockjs
 const mock = false;
 if (mock) {
@@ -46,7 +49,7 @@ axios.interceptors.response.use(response => {
 
         return Promise.reject(res);
     } else {
-        alert(res.msg)
+        Message.error(res.msg)
         return Promise.reject(res);
     }
 })

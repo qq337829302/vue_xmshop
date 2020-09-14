@@ -93,11 +93,15 @@ export default {
           password,
         })
         .then((res) => {
-          this.$cookie.set("userId", res.id, { expires: "1M" });
-          console.log(res.id);
+          this.$cookie.set("userId", res.id, { expires: "Session" });
           this.$store.dispatch("setUserInfo", res);
 
-          this.$router.push("/index");
+          this.$router.push({
+            name: "index",
+            params: {
+              from: "login",
+            },
+          });
         })
         .catch(() => {});
     },
@@ -110,7 +114,7 @@ export default {
           email: "xxxx" + Math.floor(Math.random() * 10) + "@qq.com",
         })
         .then(() => {
-          alert("注册成功");
+          this.$message.success("注册成功");
         });
     },
     checkLogin() {
