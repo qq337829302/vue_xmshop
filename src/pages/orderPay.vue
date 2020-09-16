@@ -1,9 +1,13 @@
 <template>
-    <div></div>
+  <div class="order-pay"></div>
 </template>
 
 <script>
 export default {
-    name: 'orderPay'
-}
+  name: "orderPay",
+  data() {
+    return {};
+  },
+  components: {},
+};
 </script>

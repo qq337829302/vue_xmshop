@@ -101,7 +101,7 @@ export default {
     },
     goTOSettlement() {
       this.choosed > 0
-        ? this.$router.push("/orderPay")
+        ? this.$router.push("/order/confirm")
         : this.$message.warning("选择你要结算的商品！");
     },
     confirmDel(productId) {
@@ -117,7 +117,6 @@ export default {
       });
     },
     renderData(res) {
-      console.log(res);
       this.cartList = res.cartProductVoList;
       this.allChecked = res.selectedAll;
       this.totalPrice = res.cartTotalPrice;

@@ -12,13 +12,13 @@
         </div>
         <div class="modal-footer btn-group">
           <a
-            href="javacript:;"
+            href="javascript:;"
             class="btn btn-primary"
             @click="$emit('submit')"
             v-if="btnType == 1 || btnType == 3"
           >{{confirmBtn}}</a>
           <a
-            href="javacript:;"
+            href="javascript:;"
             class="btn btn-gray"
             @click="$emit('cancel')"
             v-if="btnType == 2 || btnType == 3"
