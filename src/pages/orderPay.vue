@@ -124,10 +124,6 @@ export default {
     },
     goPay(checked) {
       this.checked = checked;
-
-      if (!this.getOrderStatus()) {
-        return;
-      }
       if (checked == 1) {
         this.$router.push({
           path: "/order/aliPay",
@@ -179,14 +175,6 @@ export default {
     },
     goOrderList() {
       this.$router.push("/order/list");
-    },
-    getOrderStatus() {
-      this.axios.get(`/orders/${this.orderId}`).then((res) => {
-        if (res.status == 20) {
-          this.$message.error("订单已付款请勿重复支付");
-          return false;
-        }
-      });
     },
   },
 };
