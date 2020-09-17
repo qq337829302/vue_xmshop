@@ -321,7 +321,7 @@ export default {
           this.$router.push({
             path: "/order/pay",
             query: {
-              orderNo: res.orderNo,
+              orderId: res.orderNo,
             },
           });
         });

@@ -52,6 +52,11 @@ axios.interceptors.response.use(response => {
         Message.error(res.msg)
         return Promise.reject(res);
     }
+}, error => {
+    //已支付订单http://localhost:8080/#/order/pay?orderId=1600331183872
+    Message.error(error.response.data.message)
+    return Promise.reject(error);
+
 })
 
 Vue.config.productionTip = false

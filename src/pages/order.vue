@@ -30,8 +30,10 @@ export default {
       this.tips = "请认真填写收货地址";
     } else if (path == "/order/list") {
       this.title = "订单列表";
+      this.tips = "请确认订单详情";
     } else if (path == "/order/pay") {
       this.title = "订单支付";
+      this.tips = "选择合适的支付方式";
     }
     console.log(this.$route.path);
   },
