@@ -1,5 +1,10 @@
 <template>
   <div class="order-pay">
+    <order-header title="订单支付">
+      <template v-slot:tips>
+        <p>请选择合适的支付方式</p>
+      </template>
+    </order-header>
     <div class="warpper">
       <div class="container">
         <div class="pay-top">
@@ -87,6 +92,7 @@
 
 <script>
 import wxPayModal from "./../components/wxPayModal";
+import OrderHeader from "./../components/OrderHeader";
 import Modal from "./../components/Modal";
 import QRCode from "qrcode";
 export default {
@@ -108,6 +114,7 @@ export default {
   components: {
     wxPayModal,
     Modal,
+    OrderHeader,
   },
   mounted() {
     this.getOrderDetail();

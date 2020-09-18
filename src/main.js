@@ -8,7 +8,7 @@ import VueCookie from 'vue-cookie';
 import store from './store/';
 
 //按需引入elementui
-import { Message, Carousel, CarouselItem } from 'element-ui';
+import { Message, Carousel, CarouselItem, Pagination, Button } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
 //vue-cookie
@@ -23,6 +23,9 @@ Vue.use(VueLazyLoad, {
 Vue.prototype.$message = Message;
 Vue.use(Carousel);
 Vue.use(CarouselItem);
+Vue.use(Pagination);
+Vue.use(Button);
+
 //mockjs
 const mock = false;
 if (mock) {

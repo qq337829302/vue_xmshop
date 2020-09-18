@@ -11,7 +11,7 @@
         <div class="topbar-user">
           <a href="javascript:;" v-if="username">{{username}}</a>
           <a href="javascript:;" v-if="username" class="logout" @click="logout"></a>
-          <a href="javascript:;" v-if="username">我的订单</a>
+          <a href="/#/order/list" v-if="username">我的订单</a>
           <a href="javascript:;" @click="gotoLogin" v-if="!username">登录</a>
           <a href="javascript:;" class="my-cart" @click="gotoCart">
             <span class="icon-cart"></span>

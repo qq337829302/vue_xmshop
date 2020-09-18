@@ -1,14 +1,17 @@
 <template>
   <div class="alipay">
-    <div class="loading"></div>
+    <loading></loading>
     <div class="content" v-html="content"></div>
   </div>
 </template>
 
 <script>
+import Loading from "./../components/Loading";
 export default {
   name: "alipay",
-
+  components: {
+    Loading,
+  },
   data() {
     return {
       orderId: this.$route.query.orderId,
@@ -39,13 +42,4 @@ export default {
 </script>
 
 <style lang="scss">
-@import "./../assets/scss/config.scss";
-@import "./../assets/scss/mixin.scss";
-.alipay {
-  .content {
-  }
-  .loading {
-    @include bgImg(100%, 80px, "/imgs/loading-svg/loading-bars.svg");
-  }
-}
 </style>
