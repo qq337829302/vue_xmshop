@@ -57,37 +57,37 @@
           <ul>
             <li>
               <a href="jascript:;">
-                <img src="/imgs/ads/icon-1.png" alt />
+                <img :src="'/imgs/ads/ads-1.png'" alt />
                 <p>小米秒杀</p>
               </a>
             </li>
             <li>
               <a href="jascript:;">
-                <img src="/imgs/ads/icon-2.png" alt />
+                <img :src="'/imgs/ads/icon-2.png'" alt />
                 <p>企业团购</p>
               </a>
             </li>
             <li>
               <a href="jascript:;">
-                <img src="/imgs/ads/icon-3.png" alt />
+                <img :src="'/imgs/ads/icon-3.png'" alt />
                 <p>F码通道</p>
               </a>
             </li>
             <li>
               <a href="jascript:;">
-                <img src="/imgs/ads/icon-4.png" alt />
+                <img :src="'/imgs/ads/icon-4.png'" alt />
                 <p>米粉卡</p>
               </a>
             </li>
             <li>
               <a href="jascript:;">
-                <img src="/imgs/ads/icon-5.png" alt />
+                <img :src="'/imgs/ads/icon-5.png'" alt />
                 <p>以旧换新</p>
               </a>
             </li>
             <li>
               <a href="jascript:;">
-                <img src="/imgs/ads/icon-6.png" alt />
+                <img src="'imgs/ads/icon-6.png'" alt />
                 <p>话费充值</p>
               </a>
             </li>

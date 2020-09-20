@@ -13,7 +13,8 @@ module.exports = {
             }
         },
     },
-    configureWebpack: config => {
-        config.devtool = "eval-source-map";
+    productionSourceMap: false,
+    chainWebpack: config => {
+        config.plugins.delete('prefetch');
     }
 }
